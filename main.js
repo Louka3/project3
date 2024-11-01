@@ -44,20 +44,18 @@ class LinkedList {
         // in decreasing order. 
         // check the current count vs the count of the previous node
         if(current.prev === null) return
-        if(current.data.count > current.prev.data.count){
+        while(current.prev !== null & current.data.count > current.prev.data.count){
           //* this need to be looped. but whats the condition?
           const tempNext = current.next; // ref to next node
-          //! what if prev is null? or if the prev of the prev is null?
-          const newPrev = current.prev.prev;
-          const swapping = current.prev;
-          current.next = swapping;
-          current.prev = newPrev;
-          swapping.next = tempNext;
-          swapping.perv = current;
+          
+          const newPrev = current.prev.prev; // new prev for current node after swap
+          const swapping = current.prev; // the node to be swapped
+          current.next = swapping; // changing next so the previous node is now further ahead in the list 
+          current.prev = newPrev; // establishing link to the rest of the list ahead of current
+          if(current.prev === null) this.head = current; // changing head of list if necesarry
+          swapping.next = tempNext; // establishing link to the rest of the list past swapped node
+          swapping.prev = current; // finally, linking the swapped node back to current
         }
-         
-
-          // if the count of current is lower or the same, i can return out of search
         
         break; //! ? i know i need to break out of this loop but i need to do something else before that
       }
