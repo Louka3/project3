@@ -1,21 +1,31 @@
 console.log("hello");
 
-const input = ["ab", "ab", "bc", "cd", "ef", "gh", "ab", "x"];
+const inputArr = ["ab", "ab", "bc", "cd", "ef", "gh", "ab", "x"];
 
-const Node = (input) => {
-  this.next = null;
-  this.data = {
-    word: input,
-    count: 1
+// let node = (input) => {
+//   this.next = null;
+//   this.data = {
+//     word: input,
+//     count: 1
+//   }
+//   this.prev = null;
+// }
+
+class Node {
+  constructor(input){
+    this.next = null;
+    this.data = {
+      word: input,
+      count: 1
+    };
   }
-  this.prev = null;
 }
 
 class LinkedList {
   constructor(){
     // start the list
     this.head = null;
-    // this.tail = null;
+    this.tail = null;
   }
   append(input){
     // append the node to the end of the list
@@ -35,6 +45,7 @@ class LinkedList {
     // traverse the list to see if the word is already accounted for
     if(this.head === null){
       this.append(input);
+      return;
     }
     let current = this.head;
     while(current){
@@ -44,11 +55,11 @@ class LinkedList {
         // in decreasing order. 
         // check the current count vs the count of the previous node
         if(current.prev === null) return
-        while(current.prev !== null & current.data.count > current.prev.data.count){
+        while(current.prev !== null & current.data.count > current?.prev?.data?.count){
           //* this need to be looped. but whats the condition?
           const tempNext = current.next; // ref to next node
           
-          const newPrev = current.prev.prev; // new prev for current node after swap
+          const newPrev = current?.prev?.prev; // new prev for current node after swap
           const swapping = current.prev; // the node to be swapped
           current.next = swapping; // changing next so the previous node is now further ahead in the list 
           current.prev = newPrev; // establishing link to the rest of the list ahead of current
@@ -61,7 +72,7 @@ class LinkedList {
       }
       else {
         if(current.next){
-          current = current.next();
+          current = current.next;
           continue;
         }
         else{
@@ -71,11 +82,27 @@ class LinkedList {
       }
     }
   }
-  compare(){
-
+  print(){
+    let current = this.head;
+    while(current !== null){
+      console.log("Word: ", current.data.word);
+      console.log("Count: ", current.data.count);
+      console.log("-----")
+      current = current.next;
+    }
+    console.log("End of list");
   }
 
 }
 
+const ll = new LinkedList();
+// ll.search('word1');
+// ll.search('word2');
+// ll.search('word3');
+// ll.search('word1');
+inputArr.forEach(ele => {
+  ll.search(ele);
+})
 
+ll.print();
 
