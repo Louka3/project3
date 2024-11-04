@@ -18,6 +18,7 @@ class Node {
       word: input,
       count: 1
     };
+    this.prev = null;
   }
 }
 
@@ -54,12 +55,13 @@ class LinkedList {
         // I want the nodes with the highest count to be at the front of the list, since the list should be
         // in decreasing order. 
         // check the current count vs the count of the previous node
-        if(current.prev === null) return
-        while(current.prev !== null & current.data.count > current?.prev?.data?.count){
+        if(current.prev === null) return;
+        while(current.data.count > current.prev.data.count){
           //* this need to be looped. but whats the condition?
           const tempNext = current.next; // ref to next node
           
-          const newPrev = current?.prev?.prev; // new prev for current node after swap
+          // const newPrev = current?.prev?.prev; // new prev for current node after swap
+          const newPrev = current.prev.prev === null ? null : current.prev.prev
           const swapping = current.prev; // the node to be swapped
           current.next = swapping; // changing next so the previous node is now further ahead in the list 
           current.prev = newPrev; // establishing link to the rest of the list ahead of current
@@ -77,7 +79,7 @@ class LinkedList {
         }
         else{
           this.append(input);
-          current = false;
+          current = null;
         }
       }
     }
