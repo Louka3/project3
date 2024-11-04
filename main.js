@@ -2,15 +2,6 @@ console.log("hello");
 
 const inputArr = ["ab", "ab", "bc", "cd", "ef", "gh", "ab", "x"];
 
-// let node = (input) => {
-//   this.next = null;
-//   this.data = {
-//     word: input,
-//     count: 1
-//   }
-//   this.prev = null;
-// }
-
 class Node {
   constructor(input){
     this.next = null;
@@ -55,8 +46,8 @@ class LinkedList {
         // I want the nodes with the highest count to be at the front of the list, since the list should be
         // in decreasing order. 
         // check the current count vs the count of the previous node
-        if(current.prev === null) return;
-        while(current.data.count > current.prev.data.count){
+        // if(current.prev === null) return;
+        while(current.prev !== null && current.data.count > current.prev.data.count){
           //* this need to be looped. but whats the condition?
           const tempNext = current.next; // ref to next node
           
