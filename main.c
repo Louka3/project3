@@ -11,7 +11,7 @@ typedef struct Node {
 
 // List type to represent the linked list
 typedef struct LinkedList {
-    Node *first;
+    Node *head;
 } LinkedList;
 
 // Function to create a node
@@ -25,7 +25,7 @@ Node *createNode(char *input) {
 
 // Find a node in the linked list or reach the end if the input is not found
 Node *search(LinkedList *list, char *input, Node **prev) {
-    Node *current = list->first;
+    Node *current = list->head;
     *prev = NULL;
 
     while (current != NULL && strcmp(current->word, input) != 0) {
@@ -44,12 +44,12 @@ void add(LinkedList *list, char *input) {
         foundNode->count++;
         // Reorder if necessary
         if (prev != NULL) {
-            prev->next = foundNode->next; // Unlink found node
+            prev->next = foundNode->next; // Link the nodes around the foundNode in order to move foundNode
         } else {
-            list->first = foundNode->next; // Update first if it was the head node
+            list->head = foundNode->next; // Update head if it was the head node
         }
         Node *insertionPoint = NULL;
-        Node *iterator = list->first;
+        Node *iterator = list->head;
         // Find correct insertion point for the incremented node
         while (iterator != NULL && iterator->count <= foundNode->count) {
             insertionPoint = iterator;
@@ -57,8 +57,8 @@ void add(LinkedList *list, char *input) {
         }
 
         if (insertionPoint == NULL) {
-            foundNode->next = list->first;
-            list->first = foundNode;
+            foundNode->next = list->head;
+            list->head = foundNode;
         } else {
             foundNode->next = insertionPoint->next;
             insertionPoint->next = foundNode;
@@ -66,11 +66,11 @@ void add(LinkedList *list, char *input) {
     } else {
         // Create new node if word isn't found in the list
         Node *newNode = createNode(input);
-        if (list->first == NULL || list->first->count > 1) {
-            newNode->next = list->first;
-            list->first = newNode;
+        if (list->head == NULL || list->head->count > 1) {
+            newNode->next = list->head;
+            list->head = newNode;
         } else {
-            Node *tail = list->first;
+            Node *tail = list->head;
             while (tail->next != NULL && tail->next->count <= 1) {
                 tail = tail->next;
             }
@@ -82,7 +82,7 @@ void add(LinkedList *list, char *input) {
 
 // Iterates through and prints the whole linked list
 void print(LinkedList *list) {
-    Node *current = list->first;
+    Node *current = list->head;
     while (current != NULL) {
         printf("%s -> %d\n", current->word, current->count);
         current = current->next;
