@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Node type to store data
+// Node type to store data in my list
 typedef struct Node {
     char word[10];
     int count;
     struct Node *next;
 } Node;
 
-// List type to represent the linked list
+// Type for the linked list
 typedef struct LinkedList {
     Node *head;
 } LinkedList;
 
-// Function to create a node
+// Create a node
 Node *createNode(char *input) {
     Node *node = (Node *)malloc(sizeof(Node));
     strcpy(node->word, input);
@@ -35,7 +35,7 @@ Node *search(LinkedList *list, char *input, Node **prev) {
     return current; // Returns either the found node or NULL
 }
 
-// Add a new node or increment and reorder an existing node
+// Add a new node or increment and reorder list
 void add(LinkedList *list, char *input) {
     Node *prev = NULL;
     Node *foundNode = search(list, input, &prev);
@@ -97,16 +97,14 @@ int main() {
     while (continueLoop) {
         printf("> ");
         scanf("%s", input);
-
         if (strcmp(input, "x") == 0) {
             continueLoop = 0;
             continue;
         }
-
         add(&list, input);
     }
 
-    printf("\nLinked list contents:\n");
+    printf("\n---List---\n");
     print(&list);
 
     return 0;
