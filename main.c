@@ -107,5 +107,14 @@ int main() {
     printf("\n---List---\n");
     print(&list);
 
+    // free the memory
+    Node *toFree;
+    Node *current = list.head;
+    while (current != NULL) {
+        toFree = current;
+        current = current->next;
+        free(toFree);
+    }
+
     return 0;
 }
