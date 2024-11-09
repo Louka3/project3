@@ -95,7 +95,7 @@ int main() {
     printf("Enter words [enter 'x' to stop]:\n");
     int continueLoop = 1;
     while (continueLoop) {
-        printf("> ");
+        printf("--> ");
         scanf("%s", input);
         if (strcmp(input, "x") == 0) {
             continueLoop = 0;
@@ -118,3 +118,22 @@ int main() {
 
     return 0;
 }
+/**
+ Output:
+ Enter words [enter 'x' to stop]:
+--> ab
+--> ab
+--> bc
+--> cd
+--> ef
+--> gh
+--> ab
+--> x
+
+---List---
+bc -> 1
+cd -> 1
+ef -> 1
+gh -> 1
+ab -> 3
+ */
