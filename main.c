@@ -70,12 +70,12 @@ void add(LinkedList *list, char *input) {
             newNode->next = list->head;
             list->head = newNode;
         } else {
-            Node *tail = list->head;
-            while (tail->next != NULL && tail->next->count <= 1) {
-                tail = tail->next;
+            Node *temp = list->head;
+            while (temp->next != NULL && temp->next->count <= 1) {
+                temp = temp->next;
             }
-            newNode->next = tail->next;
-            tail->next = newNode;
+            newNode->next = temp->next;
+            temp->next = newNode;
         }
     }
 }
